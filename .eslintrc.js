@@ -4,6 +4,7 @@ module.exports = {
       "node": true,
       "browser": true
     },
+    "parser": "babel-eslint",
     "parserOptions": {
       "ecmaFeatures": {
         "experimentalObjectRestSpread": true,
@@ -19,7 +20,6 @@ module.exports = {
     "extends": [
       "eslint:recommended",
       "airbnb",
-      "plugin:flowtype/recommended",
       "plugin:react/recommended",
       "prettier",
       "prettier/flowtype",
