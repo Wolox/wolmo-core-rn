@@ -8,7 +8,9 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "build": "babel index.js -d lib && babel src -d lib/src",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "lint-diff": "git diff --name-only --cached --relative | grep \\\\.js$ | xargs eslint",
+    "precommit": "npm run lint-diff"
   },
   "repository": {
     "type": "git",
@@ -42,6 +44,7 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-react": "^6.10.3",
+    "husky": "^0.13.3",
     "jest": "^19.0.2",
     "prettier": "^1.1.0",
     "prettier-eslint": "^5.1.0",
