@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { View, Animated, Text } from 'react-native';
 
-import styles, { configColors } from './WMOToast.styles';
+import styles from './WMOToast.styles';
 import shadow from '../styles/shadow';
 
 import { actionCreators as toastActions } from './WMOToastRedux';
 
 export default class WMOToast extends Component {
-  static configThemes(options) {
-    configColors(options);
-  }
-
   state = {
     fadeAnimation: new Animated.Value(0),
     shadowOpacity: new Animated.Value(0),
