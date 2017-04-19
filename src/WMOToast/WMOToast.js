@@ -54,11 +54,11 @@ export default class WMOToast extends Component {
 
   render() {
     if (this.state.present) {
-      const messageStyles = [styles.messageContainer];
+      const messageStyles = [styles.messageContainer, this.props.messageStyle];
       if (this.state.error) {
-        messageStyles.push(styles.error);
+        messageStyles.push(styles.error, this.props.errorStyle);
       } else if (this.state.warning) {
-        messageStyles.push(styles.warning);
+        messageStyles.push(styles.warning, this.props.warningStyle);
       }
       return (
         <Animated.View
@@ -67,11 +67,14 @@ export default class WMOToast extends Component {
             shadow.spread,
             styles.container,
             { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity },
-            this.props.containerStyles
+            this.props.containerStyle
           ]}
         >
-          <View style={[messageStyles, this.props.messageStyles]}>
-            {this.props.getMessageComponent(this.state.message)}
+          <View style={messageStyles}>
+            {this.props.getMessageComponent(this.state.message, {
+              error: this.state.error,
+              warning: this.state.warning
+            })}
           </View>
         </Animated.View>
       );
@@ -92,11 +95,13 @@ WMOToast.defaultProps = {
 };
 
 WMOToast.propTypes = {
+  containerStyle: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
   message: React.PropTypes.string,
+  messageStyle: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
   error: React.PropTypes.bool,
+  errorStyle: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
   warning: React.PropTypes.bool,
+  warningStyle: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
   duration: React.PropTypes.number,
-  getMessageComponent: React.PropTypes.func,
-  containerStyles: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
-  messageStyles: React.PropTypes.any // eslint-disable-line react/forbid-prop-types
+  getMessageComponent: React.PropTypes.func
 };

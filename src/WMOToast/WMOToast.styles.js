@@ -2,14 +2,6 @@ import { StyleSheet } from 'react-native';
 
 import { red, yellow, blue, transparent } from '../styles/colors';
 
-const themes = { error: red, warning: yellow, notice: blue };
-
-export function configColors({ error, warning, notice }) {
-  themes.error = error || themes.error;
-  themes.warning = warning || themes.warning;
-  themes.notice = notice || themes.notice;
-}
-
 export default StyleSheet.create({
   container: {
     backgroundColor: transparent,
@@ -22,7 +14,7 @@ export default StyleSheet.create({
     alignItems: 'center'
   },
   messageContainer: {
-    backgroundColor: themes.notice,
+    backgroundColor: blue,
     borderRadius: 20,
     marginHorizontal: 20,
     overflow: 'hidden',
@@ -30,9 +22,9 @@ export default StyleSheet.create({
     paddingHorizontal: 15
   },
   error: {
-    backgroundColor: themes.error
+    backgroundColor: red
   },
   warning: {
-    backgroundColor: themes.warning
+    backgroundColor: yellow
   }
 });
