@@ -2,13 +2,15 @@
   "name": "wolmo-core-rn",
   "version": "0.0.1",
   "description": "React Native utilities library",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "lint": "eslint src && eslint index.js",
     "test": "jest",
     "coverage": "jest --coverage",
     "build": "babel index.js -d lib && babel src -d lib/src",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "lint-diff": "git diff --name-only --cached --relative | grep \\\\.js$ | xargs eslint",
+    "precommit": "npm run lint-diff"
   },
   "repository": {
     "type": "git",
@@ -28,26 +30,26 @@
   "homepage": "https://github.com/Wolox/wolmo-core-rn#readme",
   "dependencies": {},
   "devDependencies": {
-    "babel-cli": "^6.23.0",
-    "babel-eslint": "^7.1.1",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.2",
     "babel-jest": "^19.0.0",
     "babel-preset-react-native": "^1.9.1",
-    "eslint": "^3.16.1",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
-    "eslint-config-prettier": "^1.4.1",
-    "eslint-plugin-flowtype": "^2.30.0",
+    "eslint-config-prettier": "^1.6.0",
+    "eslint-plugin-flowtype": "^2.30.4",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-prettier": "^2.0.1",
-    "eslint-plugin-react": "^6.10.0",
+    "eslint-plugin-react": "^6.10.3",
     "jest": "^19.0.2",
-    "prettier": "^0.20.0",
-    "prettier-eslint": "^4.2.0",
-    "react": "^15.4.2",
-    "react-native": "^0.41.2"
+    "prettier": "^1.1.0",
+    "prettier-eslint": "^5.1.0",
+    "react": "^15.5.4",
+    "react-native": "^0.43.3",
   },
   "peerDependencies": {
-    "react": "^15.4.2",
-    "react-native": "^0.41.2"
+    "react": "^15.5.4",
+    "react-native": "^0.43.3"
   }
 }
