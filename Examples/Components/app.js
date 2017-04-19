@@ -19,10 +19,10 @@ class ToastScene extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5FCFF' }}>
-        <WMOToastContainer />
         <Button title={'Info Toast!'} onPress={this.displayInfoToast} />
         <Button title={'Warning Toast!'} onPress={this.displayWarningToast} />
         <Button title={'Error Toast!'} onPress={this.displayErrorToast} />
+        <WMOToastContainer />
       </View>
     );
   }
