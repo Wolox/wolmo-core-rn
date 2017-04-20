@@ -1,43 +1,37 @@
 import Immutable from 'seamless-immutable';
 
-import { stringArrayToObject } from '../redux/reduxUtils';
-
 /* ------------- Toast actions ------------- */
 
-export const actions = stringArrayToObject(['DISPLAY_ERROR', 'DISPLAY_WARNING', 'DISPLAY_INFO', 'HIDE']);
+export const actions = {
+  DISPLAY_ERROR: '@@WMOTOAST/DISPLAY_ERROR',
+  DISPLAY_WARNING: '@@WMOTOAST/DISPLAY_WARNING',
+  DISPLAY_INFO: '@@WMOTOAST/DISPLAY_INFO',
+  HIDE: '@@WMOTOAST/HIDE'
+};
+
+const toastAction = (message, duration, type) => ({
+  type,
+  payload: {
+    message,
+    duration
+  }
+});
 
 export const actionCreators = {
   hide() {
     return {
-      type: actions.HIDE
+      type: actions.HIDE,
+      payload: {}
     };
   },
   displayError(message, duration = 4000) {
-    return {
-      type: actions.DISPLAY_ERROR,
-      payload: {
-        message,
-        duration
-      }
-    };
+    return toastAction(message, duration, actions.DISPLAY_ERROR);
   },
   displayWarning(message, duration = 4000) {
-    return {
-      type: actions.DISPLAY_WARNING,
-      payload: {
-        message,
-        duration
-      }
-    };
+    return toastAction(message, duration, actions.DISPLAY_WARNING);
   },
   displayInfo(message, duration = 4000) {
-    return {
-      type: actions.DISPLAY_INFO,
-      payload: {
-        message,
-        duration
-      }
-    };
+    return toastAction(message, duration, actions.DISPLAY_INFO);
   }
 };
 
@@ -52,46 +46,16 @@ const defaultState = {
 
 export function reducer(state = Immutable(defaultState), action) {
   switch (action.type) {
+    case actions.HIDE:
+    case actions.DISPLAY_ERROR:
+    case actions.DISPLAY_WARNING:
     case actions.DISPLAY_INFO: {
       return state.merge(
         {
           message: action.payload.message,
           duration: action.payload.duration,
-          error: false,
-          warning: false
-        },
-        { deep: true }
-      );
-    }
-    case actions.DISPLAY_WARNING: {
-      return state.merge(
-        {
-          message: action.payload.message,
-          duration: action.payload.duration,
-          error: false,
-          warning: true
-        },
-        { deep: true }
-      );
-    }
-    case actions.DISPLAY_ERROR: {
-      return state.merge(
-        {
-          message: action.payload.message,
-          duration: action.payload.duration,
-          error: true,
-          warning: false
-        },
-        { deep: true }
-      );
-    }
-    case actions.HIDE: {
-      return state.merge(
-        {
-          message: null,
-          duration: null,
-          error: false,
-          warning: false
+          error: action.type === actions.DISPLAY_ERROR,
+          warning: action.type === actions.DISPLAY_WARNING
         },
         { deep: true }
       );

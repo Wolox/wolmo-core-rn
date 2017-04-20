@@ -53,34 +53,34 @@ export default class WMOToast extends Component {
   }
 
   render() {
-    if (this.state.present) {
-      const messageStyles = [styles.messageContainer, this.props.messageStyle];
-      if (this.state.error) {
-        messageStyles.push(styles.error, this.props.errorStyle);
-      } else if (this.state.warning) {
-        messageStyles.push(styles.warning, this.props.warningStyle);
-      }
-      return (
-        <Animated.View
-          style={[
-            shadow.style,
-            shadow.spread,
-            styles.container,
-            { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity },
-            this.props.containerStyle
-          ]}
-        >
-          <View style={messageStyles}>
-            {this.props.getMessageComponent(this.state.message, {
-              error: this.state.error,
-              warning: this.state.warning
-            })}
-          </View>
-        </Animated.View>
-      );
+    if (!this.state.present) {
+      return null;
     }
 
-    return null;
+    const messageStyles = [styles.messageContainer, this.props.messageStyle];
+    if (this.state.error) {
+      messageStyles.push(styles.error, this.props.errorStyle);
+    } else if (this.state.warning) {
+      messageStyles.push(styles.warning, this.props.warningStyle);
+    }
+    return (
+      <Animated.View
+        style={[
+          shadow.style,
+          shadow.spread,
+          styles.container,
+          { opacity: this.state.fadeAnimation, shadowOpacity: this.state.shadowOpacity },
+          this.props.containerStyle
+        ]}
+      >
+        <View style={messageStyles}>
+          {this.props.getMessageComponent(this.state.message, {
+            error: this.state.error,
+            warning: this.state.warning
+          })}
+        </View>
+      </Animated.View>
+    );
   }
 }
 
@@ -95,13 +95,13 @@ WMOToast.defaultProps = {
 };
 
 WMOToast.propTypes = {
-  containerStyle: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  containerStyle: View.propTypes.style,
   message: React.PropTypes.string,
-  messageStyle: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  messageStyle: View.propTypes.style,
   error: React.PropTypes.bool,
-  errorStyle: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  errorStyle: View.propTypes.style,
   warning: React.PropTypes.bool,
-  warningStyle: React.PropTypes.any, // eslint-disable-line react/forbid-prop-types
+  warningStyle: View.propTypes.style,
   duration: React.PropTypes.number,
   getMessageComponent: React.PropTypes.func
 };
