@@ -28,7 +28,9 @@
     "url": "https://github.com/Wolox/wolmo-core-rn/issues"
   },
   "homepage": "https://github.com/Wolox/wolmo-core-rn#readme",
-  "dependencies": {},
+  "dependencies": {
+    "seamless-immutable": "^7.1.2"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.2",
@@ -42,14 +44,18 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-prettier": "^2.0.1",
     "eslint-plugin-react": "^6.10.3",
+    "husky": "^0.13.3",
     "jest": "^19.0.2",
     "prettier": "^1.1.0",
     "prettier-eslint": "^5.1.0",
     "react": "^15.5.4",
     "react-native": "^0.43.3",
+    "react-redux": "^5.0.4"
   },
   "peerDependencies": {
     "react": "^15.5.4",
-    "react-native": "^0.43.3"
+    "react-native": "^0.43.3",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0"
   }
 }
