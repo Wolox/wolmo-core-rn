@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, View } from 'react-native';
 import { WMOToastContainer, WMOToastActions } from 'wolmo-core-rn';
 import { connect } from 'react-redux';
+import WMOWithRequestExampleContainer
+  from './components/WMOWithRequestExample/WMOWithRequestExampleContainer';
 
 class ToastScene extends Component {
   displayErrorToast = () => {
@@ -18,11 +20,14 @@ class ToastScene extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5FCFF' }}>
-        <Button title={'Info Toast!'} onPress={this.displayInfoToast} />
-        <Button title={'Warning Toast!'} onPress={this.displayWarningToast} />
-        <Button title={'Error Toast!'} onPress={this.displayErrorToast} />
-        <WMOToastContainer />
+      <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F5FCFF' }}>
+          <Button title={'Info Toast!'} onPress={this.displayInfoToast} />
+          <Button title={'Warning Toast!'} onPress={this.displayWarningToast} />
+          <Button title={'Error Toast!'} onPress={this.displayErrorToast} />
+          <WMOToastContainer />
+        </View>
+        <WMOWithRequestExampleContainer />
       </View>
     );
   }
