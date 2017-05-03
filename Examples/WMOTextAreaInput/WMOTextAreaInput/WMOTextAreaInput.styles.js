@@ -7,9 +7,6 @@ export default StyleSheet.create({
     marginBottom: 20,
     borderWidth: 1
   },
-  formInput: {
-    flex: 1
-  },
   formAreaInputContainer: {
     marginBottom: 8
   },

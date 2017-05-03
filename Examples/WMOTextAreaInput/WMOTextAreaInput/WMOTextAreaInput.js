@@ -2,27 +2,47 @@ import React, { Component } from 'react';
 import { View, TextInput, Keyboard } from 'react-native';
 import styles from './WMOTextAreaInput.styles';
 
-const addedHeightSize = 17;
-const maxHeightArea = 80;
+const spacingHeightSize = 5;
 
 export default class WMOTextAreaInput extends Component {
   state = {
     shouldGrowArea: {
-      height: 46
+      height: 29
     },
-    textAreaLimiter: {
-      height: 20
-    }
+    currentNumberOfLines: 1,
+    textAreaHeight: 29,
+    comparePreviousHeight: 29
   };
 
   handleOnContentSizeChange = event => {
     const currentContentHeight = event.nativeEvent.contentSize.height;
-    const totalHeight = currentContentHeight + addedHeightSize;
-    const shoouldResizeArea =
-      (currentContentHeight < maxHeightArea && totalHeight > this.state.shouldGrowArea.height) ||
-      (currentContentHeight > addedHeightSize && totalHeight < this.state.shouldGrowArea.height);
-    if (shoouldResizeArea) {
-      this.setState({ shouldGrowArea: { height: totalHeight } });
+    if (this.state.comparePreviousHeight < currentContentHeight) {
+      if (this.state.currentNumberOfLines < this.props.maxNumberOfLines) {
+        this.setState(prevState => ({
+          textAreaHeight: currentContentHeight,
+          comparePreviousHeight: currentContentHeight,
+          currentNumberOfLines: prevState.currentNumberOfLines + 1
+        }));
+      } else {
+        this.setState(prevState => ({
+          currentNumberOfLines: prevState.currentNumberOfLines + 1,
+          comparePreviousHeight: currentContentHeight
+        }));
+      }
+    }
+    if (this.state.comparePreviousHeight > currentContentHeight) {
+      if (this.state.currentNumberOfLines <= this.props.maxNumberOfLines) {
+        this.setState(prevState => ({
+          textAreaHeight: currentContentHeight,
+          comparePreviousHeight: currentContentHeight,
+          currentNumberOfLines: prevState.currentNumberOfLines - 1
+        }));
+      } else {
+        this.setState(prevState => ({
+          currentNumberOfLines: prevState.currentNumberOfLines - 1,
+          comparePreviousHeight: currentContentHeight
+        }));
+      }
     }
   };
 
@@ -49,19 +69,20 @@ export default class WMOTextAreaInput extends Component {
       returnKeyType,
       blurOnSubmit
     } = this.props;
-
     return (
-      <View style={[styles.container, containerStyles, this.state.shouldGrowArea]}>
+      <View
+        style={[styles.container, containerStyles, { height: this.state.textAreaHeight + spacingHeightSize }]}
+      >
         <TextInput
           placeholder={placeholder}
-          style={[styles.formAreaInput]}
+          style={styles.formAreaInput}
           onChangeText={onChange}
           onBlur={onBlur}
           multiline
           onFocus={onFocus}
           value={value}
           autoCorrect={autoCorrect}
-          onChange={this.handleOnContentSizeChange}
+          onContentSizeChange={this.handleOnContentSizeChange}
           keyboardType={keyboardType}
           returnKeyType={returnKeyType}
           blurOnSubmit={blurOnSubmit}
@@ -76,7 +97,8 @@ export default class WMOTextAreaInput extends Component {
 }
 
 WMOTextAreaInput.defaultProps = {
-  autoCorrect: true
+  autoCorrect: true,
+  maxNumberOfLines: 5
 };
 
 WMOTextAreaInput.propTypes = {
@@ -92,5 +114,6 @@ WMOTextAreaInput.propTypes = {
   onSubmitEditing: React.PropTypes.func,
   nextInputGetter: React.PropTypes.func,
   maxLength: React.PropTypes.number,
+  maxNumberOfLines: React.PropTypes.number,
   value: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number])
 };
