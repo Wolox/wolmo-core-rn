@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { WMOWithRequest } from 'wolmo-core-rn';
+import { withRequest } from 'wolmo-core-rn';
 
 import WMOWithRequestExample from './WMOWithRequestExample';
 import { actionCreators as exampleActionCreators } from '../../reducers/withRequestExample';
@@ -17,13 +17,11 @@ const mapStateToProps = state => ({
 });
 
 const withRequestOptions = {
-  onRequest: props => {
-    props.onFetch();
-  },
+  onRequest: props => props.onFetch(),
   loading: props => props.loading,
   error: props => props.error
 };
 
-const WMOWithRequestExampleWithRequest = WMOWithRequest(withRequestOptions)(WMOWithRequestExample);
+const WMOWithRequestExampleWithRequest = withRequest(withRequestOptions)(WMOWithRequestExample);
 
 export default connect(mapStateToProps, mapDispatchToProps)(WMOWithRequestExampleWithRequest);

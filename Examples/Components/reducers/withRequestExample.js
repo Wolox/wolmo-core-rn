@@ -1,4 +1,4 @@
-import { WMORequestError } from 'wolmo-core-rn';
+import { WMORequestErrors } from 'wolmo-core-rn';
 
 export const actions = {
   FETCHING_SOMETHING: 'FETCHING_SOMETHING',
@@ -40,7 +40,7 @@ export const actionCreators = {
     return dispatch => {
       dispatch(actionCreators.fetchingSomething());
       setTimeout(() => {
-        dispatch(actionCreators.fetchSomethingFailure(WMORequestError.NETWORK_ERROR));
+        dispatch(actionCreators.fetchSomethingFailure(WMORequestErrors.NETWORK_ERROR));
       }, 1500);
     };
   },
@@ -48,7 +48,7 @@ export const actionCreators = {
     return dispatch => {
       dispatch(actionCreators.fetchingSomething());
       setTimeout(() => {
-        dispatch(actionCreators.fetchSomethingFailure(WMORequestError.SERVER_ERROR));
+        dispatch(actionCreators.fetchSomethingFailure(WMORequestErrors.SERVER_ERROR));
       }, 1500);
     };
   }
