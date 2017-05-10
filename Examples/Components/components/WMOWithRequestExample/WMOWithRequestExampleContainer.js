@@ -20,10 +20,8 @@ const withRequestOptions = {
   onRequest: props => {
     props.onFetch();
   },
-  mapProps: props => ({
-    loading: props.loading,
-    result: props.error
-  })
+  loading: props => props.loading,
+  error: props => props.error
 };
 
 const WMOWithRequestExampleWithRequest = WMOWithRequest(withRequestOptions)(WMOWithRequestExample);

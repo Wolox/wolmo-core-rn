@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
-function DefaultRetryError({ text, retryText, onRetry }) {
+import styles from './DefaultRetryError.styles';
+
+function DefaultRetryError({ text, retryText, onRetry, style }) {
   return (
-    <View style={{ flex: 1, justifyContent: 'space-around', alignItems: 'center' }}>
+    <View style={[styles.container, style]}>
       <Text>
         {text}
       </Text>

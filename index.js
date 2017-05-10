@@ -3,6 +3,6 @@ import { actionCreators as WMOToastActions, reducer as WMOToastReducer } from '.
 
 import * as WMOColors from './src/styles/colors';
 
-import { WMORequestResult, WMOWithRequest } from './src/WMOWithRequest/WMOWithRequest';
+import { WMORequestError, WMOWithRequest } from './src/WMOWithRequest/WMOWithRequest';
 
-export { WMOToastContainer, WMOToastActions, WMOToastReducer, WMOColors, WMORequestResult, WMOWithRequest };
+export { WMOToastContainer, WMOToastActions, WMOToastReducer, WMOColors, WMORequestError, WMOWithRequest };

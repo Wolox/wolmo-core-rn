@@ -1,5 +1,6 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
+
 import styles from './DefaultLoading.styles';
 
 function DefaultLoading() {
