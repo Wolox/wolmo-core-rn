@@ -3,29 +3,29 @@ import { View, TouchableOpacity, Text } from 'react-native';
 
 import styles from './DefaultRetryError.styles';
 
-function DefaultRetryError({ text, retryText, onRetry, style }) {
-  return (
-    <View style={[styles.container, style]}>
-      <Text>
-        {text}
-      </Text>
-      <TouchableOpacity onPress={onRetry}>
+export function customRetryError(text) {
+  function DefaultRetryError({ retryText, onRetry, style }) {
+    return (
+      <View style={[styles.container, style]}>
         <Text>
-          {retryText}
+          {text}
         </Text>
-      </TouchableOpacity>
-    </View>
-  );
+        <TouchableOpacity onPress={onRetry}>
+          <Text>
+            {retryText}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+  DefaultRetryError.defaultProps = {
+    retryText: 'RETRY'
+  };
+
+  DefaultRetryError.propTypes = {
+    retryText: React.PropTypes.string,
+    onRetry: React.PropTypes.func.isRequired
+  };
+
+  return DefaultRetryError;
 }
-
-DefaultRetryError.defaultProps = {
-  retryText: 'RETRY'
-};
-
-DefaultRetryError.propTypes = {
-  text: React.PropTypes.string.isRequired,
-  retryText: React.PropTypes.string,
-  onRetry: React.PropTypes.func.isRequired
-};
-
-export default DefaultRetryError;

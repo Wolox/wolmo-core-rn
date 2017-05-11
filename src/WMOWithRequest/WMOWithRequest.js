@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DefaultLoading from './DefaultLoading';
-import DefaultRetryError from './DefaultRetryError';
+import { customRetryError } from './DefaultRetryError';
 
 export const WMORequestErrors = {
   CLIENT_ERROR: 'CLIENT_ERROR',
@@ -10,7 +10,14 @@ export const WMORequestErrors = {
 
 function withRequestWrapper(
   WrappedComponent,
-  { onRequest, loadingComponent, loading, error, networkErrorComponent, serverErrorComponent }
+  {
+    onRequest,
+    LoadingComponent = DefaultLoading,
+    loading,
+    error,
+    NetworkErrorComponent = customRetryError('Network error'),
+    ServerErrorComponent = customRetryError('Server error')
+  }
 ) {
   class WithRequestComponent extends Component {
     componentWillMount() {
@@ -23,21 +30,17 @@ function withRequestWrapper(
 
     render() {
       if (loading(this.props)) {
-        return React.createElement(loadingComponent || DefaultLoading);
+        return <LoadingComponent />;
       }
 
       const requestError = error(this.props);
 
       if (requestError === WMORequestErrors.NETWORK_ERROR) {
-        return networkErrorComponent
-          ? React.createElement(networkErrorComponent(this.handleRequest))
-          : <DefaultRetryError text="Network error" onRetry={this.handleRequest} />;
+        return <NetworkErrorComponent onRetry={this.handleRequest} />;
       }
 
       if (requestError === WMORequestErrors.SERVER_ERROR) {
-        return serverErrorComponent
-          ? React.createElement(serverErrorComponent(this.handleRequest))
-          : <DefaultRetryError text="Server error" onRetry={this.handleRequest} />;
+        return <ServerErrorComponent onRetry={this.handleRequest} />;
       }
 
       return <WrappedComponent {...this.props} />;
